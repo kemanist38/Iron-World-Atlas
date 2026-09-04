@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron World Atlas - Strateji Oyunu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen active">
+            <div class="login-container">
+                <h1>Iron World Atlas</h1>
+                <p class="subtitle">Dünyayı Fethet</p>
+                
+                <div class="login-tabs">
+                    <button class="tab-button active" onclick="switchTab('login')">Giriş Yap</button>
+                    <button class="tab-button" onclick="switchTab('register')">Kayıt Ol</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="form active">
+                    <input type="email" placeholder="E-posta" required>
+                    <input type="password" placeholder="Şifre" required>
+                    <button type="submit" class="btn-primary">Giriş Yap</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="form">
+                    <input type="text" placeholder="Kullanıcı Adı" required>
+                    <input type="email" placeholder="E-posta" required>
+                    <input type="password" placeholder="Şifre" required>
+                    <select required>
+                        <option value="">Ülke Seç</option>
+                        <option value="turkey">Türkiye</option>
+                        <option value="germany">Almanya</option>
+                        <option value="france">Fransa</option>
+                        <option value="england">İngiltere</option>
+                        <option value="usa">ABD</option>
+                        <option value="russia">Rusya</option>
+                        <option value="china">Çin</option>
+                        <option value="japan">Japonya</option>
+                    </select>
+                    <button type="submit" class="btn-primary">Kayıt Ol</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Menu Screen -->
+        <div id="menu-screen" class="screen">
+            <div class="menu-container">
+                <h1>Iron World Atlas</h1>
+                <div class="player-info">
+                    <p id="player-name"></p>
+                    <p id="player-country"></p>
+                </div>
+                <button class="btn-primary" onclick="goToGameList()">Oyun Aç</button>
+                <button class="btn-secondary" onclick="goToCreateGame()">Yeni Oyun Oluştur</button>
+                <button class="btn-secondary" onclick="logout()">Çıkış Yap</button>
+            </div>
+        </div>
+
+        <!-- Create Game Screen -->
+        <div id="create-game-screen" class="screen">
+            <div class="create-game-container">
+                <h2>Yeni Oyun Oluştur</h2>
+                <form id="create-game-form">
+                    <input type="text" placeholder="Oyun Adı" required>
+                    
+                    <label>Harita Boyutu</label>
+                    <select required>
+                        <option value="small">Küçük (50x50)</option>
+                        <option value="medium" selected>Orta (100x100)</option>
+                        <option value="large">Büyük (150x150)</option>
+                    </select>
+
+                    <label>Oyun Modu</label>
+                    <select required>
+                        <option value="conquest" selected>Fetih</option>
+                        <option value="custom">Özel</option>
+                        <option value="survival">Survival</option>
+                    </select>
+
+                    <button type="submit" class="btn-primary">Oyun Oluştur</button>
+                    <button type="button" class="btn-secondary" onclick="goToMainMenu()">Geri Dön</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Game List Screen -->
+        <div id="game-list-screen" class="screen">
+            <div class="game-list-container">
+                <h2>Açık Oyunlar</h2>
+                <div id="games-list" class="games-list">
+                    <!-- Oyunlar buraya eklenecek -->
+                </div>
+                <button class="btn-secondary" onclick="goToMainMenu()">Geri Dön</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="game-info">
+                    <h3 id="game-title"></h3>
+                    <p>Tur: <span id="current-turn">0</span></p>
+                </div>
+                <div class="player-stats">
+                    <div class="stat">
+                        <span>Şehirler:</span>
+                        <span id="city-count">0</span>
+                    </div>
+                    <div class="stat">
+                        <span>Ordusu:</span>
+                        <span id="unit-count">0</span>
+                    </div>
+                    <div class="stat">
+                        <span>Para:</span>
+                        <span id="gold-amount">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <div class="sidebar">
+                    <div class="units-panel">
+                        <h4>Birimler</h4>
+                        <div id="units-list" class="units-list">
+                            <!-- Birimler buraya eklenecek -->
+                        </div>
+                    </div>
+                    <div class="actions-panel">
+                        <h4>İşlemler</h4>
+                        <button class="btn-small" onclick="recruitUnit()">Birim Çağır</button>
+                        <button class="btn-small" onclick="buildCity()">Şehir Kur</button>
+                        <button class="btn-small" onclick="endTurn()">Turu Bitir</button>
+                    </div>
+                </div>
+
+                <canvas id="game-canvas" width="1000" height="600"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
