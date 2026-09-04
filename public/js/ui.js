@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   if (token) {
     showScreen('menu-screen');
+    currentUser = { id: 'temp' }; // Load from token
   } else {
     showScreen('login-screen');
   }
